@@ -51,7 +51,7 @@
   <hr>
   <div id="outerBox">
     <div id="productArea">
-      <div id="productImages">
+      <div id="productImages" \>
         <!-- Product Images -->
         <div id="productMainImages">
           <img src="./assets/images/image-product-1.jpg" alt="image-1" class="productMainImages">
@@ -117,6 +117,21 @@
     </div>
   </div>
 
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="lightbox">
+    <span class="close" onclick="closeLightbox()">&times;</span>
+    <div class="lightbox-content">
+        <span class="prev" onclick="changeImage(-1)">&#10094;</span>
+        <img id="lightbox-img" src="" alt="">
+        <span class="next" onclick="changeImage(1)">&#10095;</span>
+        <div class="lightbox-thumbnails">
+            <span class="spanInLightbox"><img src="./assets/images/image-product-1-thumbnail.jpg" onclick="setImage(0)" class="lightbox-thumbnail"></span>
+            <span class="spanInLightbox"><img src="./assets/images/image-product-2-thumbnail.jpg" onclick="setImage(1)" class="lightbox-thumbnail"></span>
+            <span class="spanInLightbox"><img src="./assets/images/image-product-3-thumbnail.jpg" onclick="setImage(2)" class="lightbox-thumbnail"></span>
+            <span class="spanInLightbox"><img src="./assets/images/image-product-4-thumbnail.jpg" onclick="setImage(3)" class="lightbox-thumbnail"></span>
+      </div>
+    </div>
+  </div>
   <div id="toastContainer"></div>
   
   <script src="./assets/styleAndScript/script.js"></script>

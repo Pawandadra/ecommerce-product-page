@@ -4,7 +4,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const cartBox = document.getElementById("cartBox");
     const emptyBox = document.getElementById("outerEmptyBox");
     const cartWithItems = document.getElementById("outerCheckoutBox");
+    const mainImages = document.getElementById("productMainImages");
+    const imagesArea = document.getElementById("productImages");
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxThumbnails = document.querySelectorAll('.lightbox-thumbnail');
     const discountPrice = 125.00;
+    let currentImageIndex = 0;
 
     function updateOpacity() {
         radios.forEach(function(radio) {
@@ -18,6 +24,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 wrapper.classList.remove('selected');
             }
         });
+
+
     }
 
     function updateImages() {
@@ -127,6 +135,57 @@ document.addEventListener("DOMContentLoaded", function () {
         updateDisplay();
     }
 
+    function openLightbox(event) {
+        if (event.target.classList.contains('productMainImages')) {
+            currentImageIndex = Array.from(images).indexOf(event.target);
+            lightbox.style.display = 'block';
+            lightboxImg.src = event.target.src;
+            updateLightboxThumbnails();
+        }
+    }
+
+    function closeLightbox() {
+        lightbox.style.display = 'none';
+    }
+
+    function changeImage(direction) {
+        currentImageIndex += direction;
+        if (currentImageIndex < 0) {
+            currentImageIndex = images.length - 1;
+        } else if (currentImageIndex >= images.length) {
+            currentImageIndex = 0;
+        }
+        lightboxImg.src = images[currentImageIndex].src;
+        updateLightboxThumbnails();
+    }
+
+    function updateLightboxThumbnails() {
+        lightboxThumbnails.forEach((thumbnail, index) => {
+            if (index === currentImageIndex) {
+                thumbnail.classList.add('selected');
+            } else {
+                thumbnail.classList.remove('selected');
+            }
+        });
+    }
+
+    function setImage(index) {
+        currentImageIndex = index;
+        lightboxImg.src = images[currentImageIndex].src;
+        updateLightboxThumbnails();
+    }
+    
+    mainImages.addEventListener('click', openLightbox);
+    window.addEventListener('click', function(event) {
+        if (event.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    window.closeLightbox = closeLightbox;
+    window.changeImage = changeImage;
+    window.setImage = setImage;
+    
     function showErr() {
         const toastContainer = document.getElementById('toastContainer');
         const toast = document.createElement('div');
@@ -151,4 +210,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 3000);
     }
 });
-
