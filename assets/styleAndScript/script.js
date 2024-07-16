@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const emptyBox = document.getElementById("outerEmptyBox");
     const cartWithItems = document.getElementById("outerCheckoutBox");
     const mainImages = document.getElementById("productMainImages");
-    const imagesArea = document.getElementById("productImages");
+    // const imagesArea = document.getElementById("productImages");
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxThumbnails = document.querySelectorAll('.lightbox-thumbnail');
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function openLightbox(event) {
         if (event.target.classList.contains('productMainImages')) {
             currentImageIndex = Array.from(images).indexOf(event.target);
-            lightbox.style.display = 'block';
+            lightbox.style.display = 'grid';
             lightboxImg.src = event.target.src;
             updateLightboxThumbnails();
         }
@@ -209,4 +209,35 @@ document.addEventListener("DOMContentLoaded", function () {
             },500); 
         }, 3000);
     }
+
+    const prev = document.getElementById("prev");
+    const prevImg = document.getElementById("prevImg");
+    const next = document.getElementById("next");
+    const nextImg = document.getElementById("nextImg");
+    const close = document.getElementById("close");
+    const closeImg = document.getElementById("closeImg");
+
+    prev.addEventListener("mouseenter", function(){
+        prevImg.src = "./assets/images/icon-previous-orange.svg";
+    });
+
+    prev.addEventListener("mouseleave", function(){
+        prevImg.src = "./assets/images/icon-previous.svg";
+    });
+
+    next.addEventListener("mouseenter", function(){
+        nextImg.src = "./assets/images/icon-next-orange.svg";
+    });
+
+    next.addEventListener("mouseleave", function(){
+        nextImg.src = "./assets/images/icon-next.svg";
+    });
+
+    close.addEventListener("mouseenter", function(){
+        closeImg.src = "./assets/images/icon-close-orange.svg";
+    });
+
+    close.addEventListener("mouseleave", function(){
+        closeImg.src = "./assets/images/icon-close.svg";
+    });
 });
