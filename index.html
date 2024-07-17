@@ -18,6 +18,7 @@
 <body>
   <header>
     <nav>
+      <li class="navEle" id="menu" onclick="openMenu()"><img src="./assets/images/icon-menu.svg" alt="menu" id="menuImg"></li>
       <li class="navEle"><img src="./assets/images/logo.svg" alt="logo.svg" id="logo"></li>
       <li class="navEle fade"><a href="#">Collections</a></li>
       <li class="navEle fade"><a href="#">Men</a></li>
@@ -48,7 +49,7 @@
       <li class="navEle"><img src="./assets/images/image-avatar.png" alt="image-avatar.png" id="avatar"></li>
     </nav>
   </header>
-  <hr>
+  <hr id="nav-hr">
   <div id="outerBox">
     <div id="productArea">
       <div id="productImages">
@@ -58,6 +59,10 @@
           <img src="./assets/images/image-product-2.jpg" alt="image-2" class="productMainImages">
           <img src="./assets/images/image-product-3.jpg" alt="image-3" class="productMainImages">
           <img src="./assets/images/image-product-4.jpg" alt="image-4" class="productMainImages">
+          <div id="mainArrowBtn">
+            <button type="button" id="prevMain" class="prev" onclick="changeMainImg(-1)"><img src="./assets/images/icon-previous.svg" alt="previous" id="prevMainImg"></button>
+            <button type="button" id="nextMain" class="next" onclick="changeMainImg(1)"><img src="./assets/images/icon-next.svg" alt="next" id="nextMainImg"></button>
+          </div>
         </div>
         <!-- Product Thumbnail Images -->
         <div id="productThumbnailImages">
@@ -121,9 +126,9 @@
   <div id="lightbox" class="lightbox">
     <div class="lightbox-content">
         <span id="close" onclick="closeLightbox()"><img src="./assets/images/icon-close.svg" alt="close" id="closeImg"></span>
-        <span id="prev" onclick="changeImage(-1)"><img src="./assets/images/icon-previous.svg" alt="previous" id="prevImg"></span>
+        <span id="prev" class="prev" onclick="changeImage(-1)"><img src="./assets/images/icon-previous.svg" alt="previous" id="prevImg" class=".prevImg"></span>
         <img id="lightbox-img" src="" alt="">
-        <span id="next" onclick="changeImage(1)"><img src="./assets/images/icon-next.svg" alt="next" id="nextImg"></span>
+        <span id="next" class="next" onclick="changeImage(1)"><img src="./assets/images/icon-next.svg" alt="next" id="nextImg" class=".nextImg"></span>
         <div class="lightbox-thumbnails">
             <span class="spanInLightbox"><img src="./assets/images/image-product-1-thumbnail.jpg" onclick="setImage(0)" class="lightbox-thumbnail"></span>
             <span class="spanInLightbox"><img src="./assets/images/image-product-2-thumbnail.jpg" onclick="setImage(1)" class="lightbox-thumbnail"></span>
@@ -132,13 +137,25 @@
       </div>
     </div>
   </div>
+
+  <div id="menuContainer">
+    <div id="menuSections">
+      <button id="closeMenu" onclick="closeMenu()"><img src="./assets/images/icon-close.svg" alt="close" id="closeMenuImg"></button>
+      <li><a href="#">Collections</a></li>
+      <li><a href="#">Men</a></li>
+      <li><a href="#">Women</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </div>
+  </div>
+
   <div id="toastContainer"></div>
   
   <script src="./assets/styleAndScript/script.js"></script>
-  <!-- <div class="attribution">
+  <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div> -->
+    Coded by <a href="https://github.com/Pawandadra" target="_blank">Pawan</a>.
+  </div>
 </body>
 
 </html>

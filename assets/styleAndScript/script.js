@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const emptyBox = document.getElementById("outerEmptyBox");
     const cartWithItems = document.getElementById("outerCheckoutBox");
     const mainImages = document.getElementById("productMainImages");
-    // const imagesArea = document.getElementById("productImages");
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxThumbnails = document.querySelectorAll('.lightbox-thumbnail');
@@ -40,6 +39,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 images[i].classList.add("show");
             }
         }
+    }
+
+    let currentMainImgIndex = 0;
+    window.changeMainImg = (direction) => {
+        if((currentMainImgIndex == 0 && direction == -1) ||
+            (currentMainImgIndex == (images.length-1) && direction == 1)){
+            return;
+        }
+
+        images[currentMainImgIndex].classList.remove("show");
+        currentMainImgIndex += direction;
+        images[currentMainImgIndex].classList.add("show");
     }
 
     radios.forEach(function(radio) {
@@ -141,6 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
             lightbox.style.display = 'grid';
             lightboxImg.src = event.target.src;
             updateLightboxThumbnails();
+            checkViewport();
         }
     }
 
@@ -216,28 +228,73 @@ document.addEventListener("DOMContentLoaded", function () {
     const nextImg = document.getElementById("nextImg");
     const close = document.getElementById("close");
     const closeImg = document.getElementById("closeImg");
+    const prevMain = document.getElementById("prevMain");
+    const prevMainImg = document.getElementById("prevMainImg");
+    const nextMain = document.getElementById("nextMain");
+    const nextMainImg = document.getElementById("nextMainImg");
+    const openMenu = document.getElementById("menu");
+    const openMenuImg = document.getElementById("menuImg");
+    const closeMenu = document.getElementById("closeMenu");
+    const closeMenuImg = document.getElementById("closeMenuImg");
+    
+    const arrows = (eleId, event, imgId, fileName) => {
+        eleId.addEventListener(event, function(){
+            imgId.src = `./assets/images/${fileName}`;
+        });
+    }
 
-    prev.addEventListener("mouseenter", function(){
-        prevImg.src = "./assets/images/icon-previous-orange.svg";
-    });
+    arrows(prev, "mouseenter", prevImg, "icon-previous-orange.svg");
+    arrows(prev, "mouseleave", prevImg, "icon-previous.svg");
 
-    prev.addEventListener("mouseleave", function(){
-        prevImg.src = "./assets/images/icon-previous.svg";
-    });
+    arrows(next, "mouseenter", nextImg, "icon-next-orange.svg");
+    arrows(next, "mouseleave", nextImg, "icon-next.svg");
 
-    next.addEventListener("mouseenter", function(){
-        nextImg.src = "./assets/images/icon-next-orange.svg";
-    });
+    arrows(close, "mouseenter", closeImg, "icon-close-orange.svg");
+    arrows(close, "mouseleave", closeImg, "icon-close.svg");
 
-    next.addEventListener("mouseleave", function(){
-        nextImg.src = "./assets/images/icon-next.svg";
-    });
+    arrows(prevMain, "mouseenter", prevMainImg, "icon-previous-orange.svg");
+    arrows(prevMain, "mouseleave", prevMainImg, "icon-previous.svg");
 
-    close.addEventListener("mouseenter", function(){
-        closeImg.src = "./assets/images/icon-close-orange.svg";
-    });
+    arrows(nextMain, "mouseenter", nextMainImg, "icon-next-orange.svg");
+    arrows(nextMain, "mouseleave", nextMainImg, "icon-next.svg");
 
-    close.addEventListener("mouseleave", function(){
-        closeImg.src = "./assets/images/icon-close.svg";
-    });
+    arrows(openMenu, "mouseenter", openMenuImg, "icon-menu-orange.svg");
+    arrows(openMenu, "mouseleave", openMenuImg, "icon-menu.svg");
+
+    arrows(closeMenu, "mouseenter", closeMenuImg, "icon-close-orange.svg");
+    arrows(closeMenu, "mouseleave", closeMenuImg, "icon-close.svg");
+
+
+
+    const checkViewport = () => {
+        const mainArrowBtn = document.getElementById("mainArrowBtn");
+        if (window.matchMedia("(max-width: 768px)").matches) {
+            mainArrowBtn.style.display = "flex";
+            if(lightbox.style.display == "grid"){
+                closeLightbox();
+            }
+        } else {
+            mainArrowBtn.style.display = "none";
+        }
+    };
+    
+    checkViewport();
+    window.addEventListener("resize", checkViewport);
+
+    const menuContainer = document.getElementById("menuContainer");
+    const menuSections = document.getElementById("menuSections");
+
+    window.openMenu = () => {
+        menuContainer.style.display = "flex";
+        setTimeout(() => {
+            menuSections.style.left = "0";
+        }, 10);
+    }
+
+    window.closeMenu = () => {
+        menuSections.style.left = "-100%";
+        setTimeout(() => {
+            menuContainer.style.display = "none";
+        },500); 
+    }
 });
